@@ -54,6 +54,9 @@ def main():
         # Get the MetaMask provider
         provider = web3.eth.get_default_provider()
 
+        # Set the `allowSameNetworkTransactions` option to True
+        provider.allowSameNetworkTransactions = True
+
         # Sign the transaction
         signature = sign_transaction(data, provider)
 
