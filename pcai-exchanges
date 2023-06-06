@@ -17,27 +17,52 @@ def scan_activity(activity_id):
 
     # Check if the receiving wallet has the sending wallet address
     if sending_address in receiving_addresses:
-        # Get the network of the sending wallet
-        network = web3.eth.coinbase.network
-
         # Allow the transaction
-        return True, network
+        return True
     else:
         # Block the transaction
-        return False, None
+        return False
+
+def sign_transaction(data, provider):
+    # Sign the transaction
+    signature = provider.personal_sign(data)
+
+    # Return the signature
+    return signature
+
+def sign_file(file_path, provider):
+    # Read the file contents
+    with open(file_path, "rb") as f:
+        data = f.read()
+
+    # Sign the data
+    signature = sign_transaction(data, provider)
+
+    # Save the signature to the file
+    print(signature)
 
 def main():
     # Get the activity ID
     activity_id = input("Enter the activity ID: ")
 
     # Scan the activity
-    allowed, network = scan_activity(activity_id)
+    allowed = scan_activity(activity_id)
 
-    # Display the result
+    # If the transaction is allowed, sign it and print the signature
     if allowed:
-        print(f"Transaction allowed on network {network}")
-    else:
-        print("Transaction blocked")
+        # Get the MetaMask provider
+        provider = web3.eth.get_default_provider()
+
+        # Set the `allowSameNetworkTransactions` option to True
+        provider.allowSameNetworkTransactions = True
+
+        # Sign the transaction
+        signature = sign_transaction(data, provider)
+
+        # Print the signature
+        print(signature)
+
+    # If the transaction is blocked, do nothing
 
 if __name__ == "__main__":
     main()
