@@ -42,6 +42,16 @@ def sign_file(file_path, provider):
     with open(file_path + ".sig", "wb") as f:
         f.write(signature)
 
+def upload_signature(signature, decentralized_storage_network):
+    # Upload the signature to the decentralized storage network
+    ipfs_client = decentralized_storage_network.get_ipfs_client()
+
+    # Add the signature to IPFS
+    ipfs_hash = ipfs_client.add(signature)
+
+    # Return the IPFS hash
+    return ipfs_hash
+
 def main():
     # Get the activity ID
     activity_id = input("Enter the activity ID: ")
@@ -63,6 +73,9 @@ def main():
         # Save the signature to the file
         with open("signature.sig", "wb") as f:
             f.write(signature)
+
+        # Upload the signature to IPFS
+        ipfs_hash = upload_signature(signature, IPFS)
 
     # If the transaction is blocked, do nothing
 
