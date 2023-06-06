@@ -49,7 +49,7 @@ def main():
     # Scan the activity
     allowed = scan_activity(activity_id)
 
-    # If the transaction is allowed, sign it
+    # If the transaction is allowed, sign it and save the signature to the .sig file
     if allowed:
         # Get the MetaMask provider
         provider = web3.eth.get_default_provider()
@@ -60,8 +60,9 @@ def main():
         # Sign the transaction
         signature = sign_transaction(data, provider)
 
-        # Print the signature
-        print(signature)
+        # Save the signature to the file
+        with open("signature.sig", "wb") as f:
+            f.write(signature)
 
     # If the transaction is blocked, do nothing
 
