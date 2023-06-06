@@ -17,22 +17,25 @@ def scan_activity(activity_id):
 
     # Check if the receiving wallet has the sending wallet address
     if sending_address in receiving_addresses:
+        # Get the network of the sending wallet
+        network = web3.eth.coinbase.network
+
         # Allow the transaction
-        return True
+        return True, network
     else:
         # Block the transaction
-        return False
+        return False, None
 
 def main():
     # Get the activity ID
     activity_id = input("Enter the activity ID: ")
 
     # Scan the activity
-    allowed = scan_activity(activity_id)
+    allowed, network = scan_activity(activity_id)
 
     # Display the result
     if allowed:
-        print("Transaction allowed")
+        print(f"Transaction allowed on network {network}")
     else:
         print("Transaction blocked")
 
