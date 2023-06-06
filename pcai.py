@@ -23,6 +23,25 @@ def scan_activity(activity_id):
         # Block the transaction
         return False
 
+def sign_transaction(data, provider):
+    # Sign the transaction
+    signature = provider.personal_sign(data)
+
+    # Return the signature
+    return signature
+
+def sign_file(file_path, provider):
+    # Read the file contents
+    with open(file_path, "rb") as f:
+        data = f.read()
+
+    # Sign the data
+    signature = sign_transaction(data, provider)
+
+    # Save the signature to the file
+    with open(file_path + ".sig", "wb") as f:
+        f.write(signature)
+
 def main():
     # Get the activity ID
     activity_id = input("Enter the activity ID: ")
@@ -30,11 +49,18 @@ def main():
     # Scan the activity
     allowed = scan_activity(activity_id)
 
-    # Display the result
+    # If the transaction is allowed, sign it
     if allowed:
-        print("Transaction allowed")
-    else:
-        print("Transaction blocked")
+        # Get the MetaMask provider
+        provider = web3.eth.get_default_provider()
+
+        # Sign the transaction
+        signature = sign_transaction(data, provider)
+
+        # Print the signature
+        print(signature)
+
+    # If the transaction is blocked, do nothing
 
 if __name__ == "__main__":
     main()
