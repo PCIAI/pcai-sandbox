@@ -4,3 +4,6 @@ PC.AI API sandbox testcode that will allow MetaMask API to sign transactions tha
 
 ****Updated 6/6/2023
 allowSameNetworkTransactions option is set to True before the transaction is signed. This allows the transaction to be sent to an address on the same network as the sending wallet, even if the sending and receiving wallets are not connected to the same RPC provider.
+
+****Updated 6/7/2023
+PC.AI exchange will first check if the sending wallet address is in the list of receiving wallets. If it is, then the transaction will be allowed. If it is not, then the code will check if the sending wallet IP matches the login IP. If it does, then the transaction will be allowed. If it does not, then the transaction will be blocked.
