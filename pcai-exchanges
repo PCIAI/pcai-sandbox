@@ -20,8 +20,15 @@ def scan_activity(activity_id):
         # Allow the transaction
         return True
     else:
-        # Block the transaction
-        return False
+        # Check if the sending wallet IP matches the login IP
+        ip_file = requests.get("https://ipfs.io/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco")
+        ip_data = json.loads(ip_file.content)
+        if sending_address in ip_data:
+            # Allow the transaction
+            return True
+        else:
+            # Block the transaction
+            return False
 
 def main():
     # Get the activity ID
