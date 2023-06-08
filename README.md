@@ -1,5 +1,5 @@
 # pcai-API-sandbox
-PC.AI API sandbox testcode that will allow MetaMask API to sign transactions that include hashes and sign files sending wallet. The scan_activity function will scan the activity data and determine if the transaction is allowed. If the transaction is allowed, the sign_transaction function will sign the transaction using the MetaMask provider. The sign_file function will sign a file using the MetaMask provider. The main function will prompt the user for the activity ID and then scan the activity. If the transaction is allowed, the signature will be printed. If the transaction is blocked, nothing will happen.
+PC.AI API sandbox code will first scan the activity to see if the sending wallet address is in the list of receiving wallet addresses. If it is, the transaction will be allowed and the signature will be signed and saved to the signature.sig file. If the sending wallet address is not in the list of receiving wallet addresses, the transaction will be blocked and the user will be prompted to enter the sending wallet address to whitelist. The sending wallet address will then be added to the whitelist and the transaction will be allowed.
 
 
 ****Updated 6/6/2023
