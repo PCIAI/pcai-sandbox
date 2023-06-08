@@ -36,28 +36,34 @@ Use descriptive commit messages. This will help other users understand what chan
 
 ===============================================================================================================================
 
-To compile the MetaMask API, you need the following files:
+To compile a Python script to work in MetaMask API, you need to use the pyinstaller package. This package allows you to compile Python scripts into executable files that can be run without the need for Python.
 
-openrpc.json: This file defines the openRPC API for MetaMask.
-
-
-package.json: This file contains the dependencies for the MetaMask API.
-tsconfig.json: This file configures the TypeScript compiler for the MetaMask API.
-Once you have these files, you can compile the MetaMask API using the following command:
+To compile a Python script using pyinstaller, you need to run the following command:
 
 Code snippet
-npm run build
+pyinstaller -F <script_name>.py
 Use code with caution. Learn more
-This will create a compiled version of the MetaMask API in the dist directory.
-
-Here are some additional details about the files you need to compile the MetaMask API:
-
-openrpc.json: This file defines the openRPC API for MetaMask. The openRPC API is a standard way to define an API for a decentralized application (dapp). The MetaMask API uses the openRPC API to allow dapps to interact with MetaMask.
-package.json: This file contains the dependencies for the MetaMask API. The dependencies are the other libraries that the MetaMask API needs to function.
-tsconfig.json: This file configures the TypeScript compiler for the MetaMask API. TypeScript is a programming language that adds type safety to JavaScript. The MetaMask API is written in TypeScript.
-Once you have compiled the MetaMask API, you can use it in your dapp. To do this, you need to import the MetaMask API into your dapp. You can do this by adding the following line to the import statement in your dapp:
+For example, to compile a Python script named my_script.py, you would run the following command:
 
 Code snippet
-import { MetaMask } from "metamask-api";
+pyinstaller -F my_script.py
 Use code with caution. Learn more
-Once you have imported the MetaMask API, you can use it to interact with MetaMask. For example, you can use the MetaMask API to get the user's account balance, send a transaction, or sign a message.
+This will create an executable file named my_script in the current directory. You can then run this executable file to run your Python script.
+
+Once your Python script has been compiled, you can use it with MetaMask API by importing it into your MetaMask app. To do this, you need to add the following line to the import statement in your MetaMask app:
+
+Code snippet
+from <script_name> import *
+Use code with caution. Learn more
+For example, if your Python script is named my_script.py, you would add the following line to the import statement in your MetaMask app:
+
+Code snippet
+from my_script import *
+Use code with caution. Learn more
+Once you have imported your Python script, you can use it to interact with MetaMask API. For more information on how to interact with MetaMask API, please refer to the MetaMask documentation.
+
+Here are some additional details about compiling Python scripts using pyinstaller:
+
+The -F flag tells pyinstaller to create a single executable file.
+The <script_name>.py argument specifies the name of the Python script to compile.
+The executable file will be created in the current directory.
