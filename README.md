@@ -32,3 +32,30 @@ Once your pull request is approved, the changes will be merged into the main bra
 Here are some additional tips for updating code on a GitHub repository:
 
 Use descriptive commit messages. This will help other users understand what changes you have made. Use a consistent coding style. This will make your code easier to read and maintain. Test your changes before you push them to the remote repository. This will help to avoid errors. Document your changes. This will help other users understand how to use your code.
+
+
+===============================================================================================================================
+
+To compile the MetaMask API, you need the following files:
+
+openrpc.json: This file defines the openRPC API for MetaMask.
+package.json: This file contains the dependencies for the MetaMask API.
+tsconfig.json: This file configures the TypeScript compiler for the MetaMask API.
+Once you have these files, you can compile the MetaMask API using the following command:
+
+Code snippet
+npm run build
+Use code with caution. Learn more
+This will create a compiled version of the MetaMask API in the dist directory.
+
+Here are some additional details about the files you need to compile the MetaMask API:
+
+openrpc.json: This file defines the openRPC API for MetaMask. The openRPC API is a standard way to define an API for a decentralized application (dapp). The MetaMask API uses the openRPC API to allow dapps to interact with MetaMask.
+package.json: This file contains the dependencies for the MetaMask API. The dependencies are the other libraries that the MetaMask API needs to function.
+tsconfig.json: This file configures the TypeScript compiler for the MetaMask API. TypeScript is a programming language that adds type safety to JavaScript. The MetaMask API is written in TypeScript.
+Once you have compiled the MetaMask API, you can use it in your dapp. To do this, you need to import the MetaMask API into your dapp. You can do this by adding the following line to the import statement in your dapp:
+
+Code snippet
+import { MetaMask } from "metamask-api";
+Use code with caution. Learn more
+Once you have imported the MetaMask API, you can use it to interact with MetaMask. For example, you can use the MetaMask API to get the user's account balance, send a transaction, or sign a message.
