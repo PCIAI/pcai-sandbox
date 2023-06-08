@@ -39,6 +39,8 @@ Use descriptive commit messages. This will help other users understand what chan
 To compile the MetaMask API, you need the following files:
 
 openrpc.json: This file defines the openRPC API for MetaMask.
+
+
 package.json: This file contains the dependencies for the MetaMask API.
 tsconfig.json: This file configures the TypeScript compiler for the MetaMask API.
 Once you have these files, you can compile the MetaMask API using the following command:
