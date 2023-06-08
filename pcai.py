@@ -20,11 +20,37 @@ def scan_activity(activity_id):
         # Allow the transaction
         return True
     else:
-        # Block the transaction and prompt the user to whitelist the sending wallet
-        print("The transaction has been blocked. Please enter the sending wallet address to whitelist it: ")
-        sending_wallet_address = input()
-        web3.eth.defaultAccount = sending_wallet_address
+        # Block the transaction
         return False
+
+def sign_transaction(data, provider):
+    # Sign the transaction
+    signature = provider.personal_sign(data)
+
+    # Return the signature
+    return signature
+
+def sign_file(file_path, provider):
+    # Read the file contents
+    with open(file_path, "rb") as f:
+        data = f.read()
+
+    # Sign the data
+    signature = sign_transaction(data, provider)
+
+    # Save the signature to the file
+    with open(file_path + ".sig", "wb") as f:
+        f.write(signature)
+
+def upload_signature(signature, decentralized_storage_network):
+    # Upload the signature to the decentralized storage network
+    ipfs_client = decentralized_storage_network.get_ipfs_client()
+
+    # Add the signature to IPFS
+    ipfs_hash = ipfs_client.add(signature)
+
+    # Return the IPFS hash
+    return ipfs_hash
 
 def main():
     # Get the activity ID
@@ -33,14 +59,31 @@ def main():
     # Scan the activity
     allowed = scan_activity(activity_id)
 
-    # If the transaction is allowed, do nothing
+    # If the transaction is allowed, sign it and save the signature to the .sig file
     if allowed:
-        pass
+        # Get the MetaMask provider
+        provider = web3.eth.get_default_provider()
 
-    # If the transaction is blocked, print a message and exit
+        # Set the `allowSameNetworkTransactions` option to True
+        provider.allowSameNetworkTransactions = True
+
+        # Sign the transaction
+        signature = sign_transaction(data, provider)
+
+        # Save the signature to the file
+        with open("signature.sig", "wb") as f:
+            f.write(signature)
+
+        # Upload the signature to IPFS
+        ipfs_hash = upload_signature(signature, IPFS)
+
+    # If the transaction is blocked, prompt the user to enter the sending wallet address to whitelist
     else:
-        print("The transaction has been blocked.")
-        exit()
+        sending_wallet_address = input("Enter the sending wallet address to whitelist: ")
+
+        # Add the sending wallet address to the whitelist
+        with open("whitelist.txt", "a") as f:
+            f.write(sending_wallet_address + "\n")
 
 if __name__ == "__main__":
     main()
